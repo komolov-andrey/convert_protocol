@@ -5,6 +5,8 @@
  */
 package main;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -109,12 +111,13 @@ public class Main {
         //System.out.println(field);
         //System.out.println(sendPayment.account);
         //------------------------------------------
-        Marshaller marshaller = context.createMarshaller();
-
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
+        //Marshaller marshaller = context.createMarshaller();
+        //marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         //Marshal the employees list in console
-        marshaller.marshal(envelope, System.out);
+        //marshaller.marshal(envelope, System.out);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println(mapper.writeValueAsString(envelope));
     }
 
 }

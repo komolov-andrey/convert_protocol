@@ -6,13 +6,13 @@
   
 package xmlClasses;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.*;
 
 /**
  *
@@ -26,6 +26,7 @@ public class Envelope {
     public Envelope() {
     }
     
+    
     @XmlElement(name="Body")
     public ArrayList<Body> body = new ArrayList<>();
 
@@ -36,5 +37,5 @@ public class Envelope {
     public void setBody(ArrayList<Body> body) {
         this.body = body;
     }
-    
+
 }
