@@ -8,12 +8,21 @@ package main;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import servlets.AllRequestsServlet;
+import http.XmlParserServlet;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 import java.io.FileInputStream;
+import java.io.StringReader;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import xmlClasses.Account;
+import xmlClasses.Body;
+import xmlClasses.Envelope;
+import xmlClasses.Field;
+import xmlClasses.SendPayment;
 
 /**
  *
@@ -23,21 +32,26 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        /*
+        String httpPort=null;
+        String tcpDestAddr;
+        String tcpDestPort;
+            
         // Чтение файла config.property
         Properties prop = new Properties();
         FileInputStream input = null;
 
         try {
-
             input = new FileInputStream("config.property");
 
             // load a properties file
             prop.load(input);
 
-            // get the property value and print it out
-            System.out.println(prop.getProperty("http.port"));
-            System.out.println(prop.getProperty("tcp.dest.addr"));
-            System.out.println(prop.getProperty("tcp.dest.port"));
+            // get the property value
+            httpPort = prop.getProperty("http.port");
+            tcpDestAddr = prop.getProperty("tcp.dest.addr");
+            tcpDestPort = prop.getProperty("tcp.dest.port");
+            
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -51,17 +65,56 @@ public class Main {
             }
         }
 
-        /*
-        AllRequestsServlet allRequestsServlet = new AllRequestsServlet();
+        
+        XmlParserServlet xmlParserServlet = new XmlParserServlet();
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.addServlet(new ServletHolder(allRequestsServlet), "/*");
+        context.addServlet(new ServletHolder(xmlParserServlet), "/*");
 
-        Server server = new Server(8080);
+        Server server = new Server(Integer.parseInt(httpPort));
         server.setHandler(context);
 
         server.start();
         server.join();
+        
          */
+        String xmldata = "<Envelope>\n"
+                + "<Body>\n"
+                + "<sendPayment>\n"
+                + "<token>001234</token>\n"
+                + "<cardNumber>811626834823422</cardNumber>\n"
+                + "<requestId>2255086658</requestId>\n"
+                + "<amount>100000.00</amount>\n"
+                + "<currency>RUB</currency>\n"
+                + "<account type=\"source\">009037269229</account>\n"
+                + "<account type=\"destination\">088127269229</account>\n"
+                + "<page>1</page>\n"
+                + "<field id=\"0\" value=\"0800\" />\n"
+                + "<field id=\"11\" value=\"000001\" />\n"
+                + "<field id=\"70\" value=\"301\" />\n"
+                + "</sendPayment>\n"
+                + "</Body>\n"
+                + "</Envelope>";
+
+        StringReader reader = new StringReader(xmldata);
+
+        JAXBContext context = JAXBContext.newInstance(Field.class, Account.class, SendPayment.class, Body.class, Envelope.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+
+        Envelope envelope = (Envelope) unmarshaller.unmarshal(reader);
+        //Account account = (Account) unmarshaller.unmarshal(reader);
+        //Field field = (Field) unmarshaller.unmarshal(reader);
+
+        //System.out.println(sendPayment.field.get(0).value);
+        //System.out.println(field);
+        //System.out.println(sendPayment.account);
+        //------------------------------------------
+        Marshaller marshaller = context.createMarshaller();
+
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        //Marshal the employees list in console
+        marshaller.marshal(envelope, System.out);
     }
+
 }

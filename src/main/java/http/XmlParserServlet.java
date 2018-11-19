@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package http;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,13 +18,13 @@ import templater.PageGenerator;
  *
  * @author Андрюха
  */
-public class AllRequestsServlet extends HttpServlet {
+public class XmlParserServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws ServletException, IOException {
 
         Map<String, Object> pageVariables = createPageVariablesMap(request);
-        pageVariables.put("message", "");
+        pageVariables.put("message", "myTest");
 
         response.getWriter().println(PageGenerator.instance().getPage("index.html", pageVariables));
 
@@ -48,6 +48,7 @@ public class AllRequestsServlet extends HttpServlet {
         }
         pageVariables.put("message", message == null ? "" : message);
 
+        // не забудь ajax +
         response.getWriter().println(PageGenerator.instance().getPage("index.html", pageVariables));
     }
 
