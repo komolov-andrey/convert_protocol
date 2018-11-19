@@ -78,9 +78,9 @@ public class Main {
         server.join();
         
          */
-        String xmldata = "<Envelope>\n"
+        String xmldata = "<Envelope xmlns:urn=\"wsapi:Payment\">\n"
                 + "<Body>\n"
-                + "<sendPayment>\n"
+                + "<urn:sendPayment>\n"
                 + "<token>001234</token>\n"
                 + "<cardNumber>811626834823422</cardNumber>\n"
                 + "<requestId>2255086658</requestId>\n"
@@ -92,7 +92,7 @@ public class Main {
                 + "<field id=\"0\" value=\"0800\" />\n"
                 + "<field id=\"11\" value=\"000001\" />\n"
                 + "<field id=\"70\" value=\"301\" />\n"
-                + "</sendPayment>\n"
+                + "</urn:sendPayment>\n"
                 + "</Body>\n"
                 + "</Envelope>";
 
