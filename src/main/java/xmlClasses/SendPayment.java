@@ -36,7 +36,7 @@ public class SendPayment {
     @XmlElement(name = "currency")
     public String currency;
     
-    @XmlElement(name="account")
+    @XmlElement(name="account", namespace = "wsapi:Utils")
     public ArrayList<Account> account = new ArrayList<>();
     
     @XmlElement(name = "page")

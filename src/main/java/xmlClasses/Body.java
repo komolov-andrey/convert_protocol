@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author Андрюха
  */
-@XmlType(name = "Body")
+@XmlType(name = "Body", namespace = "wsapi:Payment")
 @XmlRootElement(name = "Envelope")
 @XmlAccessorType (XmlAccessType.FIELD)
 public class Body {

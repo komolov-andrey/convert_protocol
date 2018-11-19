@@ -78,7 +78,7 @@ public class Main {
         server.join();
         
          */
-        String xmldata = "<Envelope xmlns:urn=\"wsapi:Payment\">\n"
+        String xmldata = "<Envelope xmlns:urn=\"wsapi:Payment\" xmlns:uts=\"wsapi:Utils\">\n"
                 + "<Body>\n"
                 + "<urn:sendPayment>\n"
                 + "<token>001234</token>\n"
@@ -86,8 +86,8 @@ public class Main {
                 + "<requestId>2255086658</requestId>\n"
                 + "<amount>100000.00</amount>\n"
                 + "<currency>RUB</currency>\n"
-                + "<account type=\"source\">009037269229</account>\n"
-                + "<account type=\"destination\">088127269229</account>\n"
+                + "<uts:account type=\"source\">009037269229</uts:account>\n"
+                + "<uts:account type=\"destination\">088127269229</uts:account>\n"
                 + "<page>1</page>\n"
                 + "<field id=\"0\" value=\"0800\" />\n"
                 + "<field id=\"11\" value=\"000001\" />\n"
