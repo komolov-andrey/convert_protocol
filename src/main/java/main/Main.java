@@ -20,6 +20,8 @@ import java.io.StringReader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import xmlClasses.Account;
 import xmlClasses.Body;
 import xmlClasses.Envelope;
@@ -31,8 +33,13 @@ import xmlClasses.SendPayment;
  * @author Андрюха
  */
 public class Main {
+    
+    // Инициализация логера
+    private static final Logger log = Logger.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
+        //init log configuration
+        BasicConfigurator.configure();
 
         /*
         String httpPort=null;
@@ -104,20 +111,15 @@ public class Main {
         Unmarshaller unmarshaller = context.createUnmarshaller();
 
         Envelope envelope = (Envelope) unmarshaller.unmarshal(reader);
-        //Account account = (Account) unmarshaller.unmarshal(reader);
-        //Field field = (Field) unmarshaller.unmarshal(reader);
 
-        //System.out.println(sendPayment.field.get(0).value);
-        //System.out.println(field);
-        //System.out.println(sendPayment.account);
-        //------------------------------------------
-        //Marshaller marshaller = context.createMarshaller();
-        //marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        //Marshal the employees list in console
-        //marshaller.marshal(envelope, System.out);
-        
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(envelope, System.out);
+    
         ObjectMapper mapper = new ObjectMapper();
         System.out.println(mapper.writeValueAsString(envelope));
+        log.warn("Test");
+        
     }
 
 }
