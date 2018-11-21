@@ -11,12 +11,22 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import http.XmlParserServlet;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.StringReader;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -33,7 +43,7 @@ import xmlClasses.SendPayment;
  * @author Андрюха
  */
 public class Main {
-    
+
     // Инициализация логера
     private static final Logger log = Logger.getLogger(Main.class);
 
@@ -104,7 +114,7 @@ public class Main {
                 + "</urn:sendPayment>\n"
                 + "</Body>\n"
                 + "</Envelope>";
-
+        
         StringReader reader = new StringReader(xmldata);
 
         JAXBContext context = JAXBContext.newInstance(Field.class, Account.class, SendPayment.class, Body.class, Envelope.class);
@@ -112,14 +122,31 @@ public class Main {
 
         Envelope envelope = (Envelope) unmarshaller.unmarshal(reader);
 
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(envelope, System.out);
+        //Marshaller marshaller = context.createMarshaller();
+        //marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        //marshaller.marshal(envelope, System.out);
     
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println(mapper.writeValueAsString(envelope));
-        log.warn("Test");
+        String json = mapper.writeValueAsString(envelope);
         
+        //System.out.println(json);
+        //log.warn("Test");
+
+        //Socket socket = new Socket("127.0.0.1", 1234);
+
+        LinkedHashMap <String, String> map = new LinkedHashMap<>();
+        map.put("description", "Json data");
+        map.put("length", json.length()+"");
+        map.put("byte", json.getBytes(StandardCharsets.UTF_16LE).toString());
+        
+        //ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        //ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));;
+
+        //out.writeObject(map);
+        //out.flush();
+        
+        
+        //System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(map.toString().getBytes()));
     }
 
 }
