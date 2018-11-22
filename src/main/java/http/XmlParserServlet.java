@@ -85,6 +85,7 @@ public class XmlParserServlet extends HttpServlet {
 
                 pageVariables.put("message", "Your json - " + json);
                 pageVariables.put("xmlField", xml);
+                log.info("xml распарсен");
             } catch (JAXBException ex) {
                 log.error("Не удалось распарсить xml");
                 pageVariables.put("message", "Failed to parse xml");
@@ -92,18 +93,20 @@ public class XmlParserServlet extends HttpServlet {
         } else {
             // если нажали кнопку send
             try {
-                Socket socket = new Socket(Main.getTcpDestAddr(), Integer.parseInt(Main.getTcpDestPort()));
                 LinkedHashMap<String, String> map = new LinkedHashMap<>();
                 map.put("description", "Json data");
                 map.put("length", json.length() + "");
                 map.put("byte", json.getBytes(StandardCharsets.UTF_16LE).toString());
+                
+                log.info("Будут отправлены данные: " + javax.xml.bind.DatatypeConverter.printHexBinary(map.toString().getBytes()));
+                
+                Socket socket = new Socket(Main.getTcpDestAddr(), Integer.parseInt(Main.getTcpDestPort()));
 
                 ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
                 ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));;
                 out.writeObject(map);
                 out.flush();
-
-                log.info(javax.xml.bind.DatatypeConverter.printHexBinary(map.toString().getBytes()));
+                
                 pageVariables.put("sendInfo", "Data send");
 
             } catch (Exception e) {
