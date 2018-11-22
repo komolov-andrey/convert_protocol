@@ -25,7 +25,7 @@ public class Body {
     }
     
     @XmlElement(name="sendPayment")
-    public ArrayList<SendPayment> sendPayment = new ArrayList<>();
+    private ArrayList<SendPayment> sendPayment = new ArrayList<>();
 
     public ArrayList<SendPayment> getSendPayment() {
         return sendPayment;

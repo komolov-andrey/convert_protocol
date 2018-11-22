@@ -28,11 +28,10 @@ import javax.xml.bind.annotation.XmlValue;
 public class Account {
 
     @XmlAttribute(name = "type")
-    public String type;
-    
+    private String type;
     
     @XmlValue
-    public String acc;
+    private String acc;
 
     public Account() {
     }

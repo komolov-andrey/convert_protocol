@@ -22,10 +22,10 @@ import javax.xml.bind.annotation.XmlType;
 public class Field {
 
     @XmlAttribute(name = "id")
-    public String id;
+    private String id;
     
     @XmlAttribute(name = "value")
-    public String value;
+    private String value;
 
     public Field() {
     }

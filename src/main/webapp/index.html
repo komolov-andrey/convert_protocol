@@ -7,22 +7,29 @@
     <body>
         <form method="POST">
             <p>Xml:<br/>
-                    <textarea name="message" cols="70" rows="30"></textarea>
+                <textarea name="xml" cols="70" rows="30">${xmlField}</textarea>
             </p>
-            <p><input type="submit" value="Send"/></p>
+            <p>
+                <input type="submit" value="parse"/>
+            </p>
+            <p>
+                <input type="submit" name="send" value="send"/>
+            </p>
+
         </form>
 
-        <p>Message: ${message}</p>
+        <p>${message}</p>
+        <p>${sendInfo}</p>
+        <hr align="left" width="300" size="4" color="#ff9900" />
 
-        <p>Method: ${method}</p>
-
-        <p>URL: ${URL}</p>
-
-        <p>PathInfo: ${pathInfo}</p>
-
-        <p>SessionId: ${sessionId}</p>
-
-        <p>Parameters: ${parameters}</p>
+        <p>${token}</p>
+        <p>${cardNumber}</p>
+        <p>${amount}</p>
+        <select>
+            <option value="Валюта ">${currency}</option>
+        </select>
+        <p>${source}</p>
+        <p>${destination}</p>
 
     </body>
 </html>

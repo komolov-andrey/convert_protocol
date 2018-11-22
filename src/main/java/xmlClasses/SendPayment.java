@@ -22,28 +22,28 @@ import javax.xml.bind.annotation.XmlType;
 public class SendPayment {
     
     @XmlElement(name = "token")
-    public String token;
+    private String token;
     
     @XmlElement(name = "cardNumber")
-    public String cardNumber;
+    private String cardNumber;
     
     @XmlElement(name = "requestId")
-    public String requestId;
+    private String requestId;
     
     @XmlElement(name = "amount")
-    public String amount;
+    private String amount;
     
     @XmlElement(name = "currency")
-    public String currency;
+    private String currency;
     
     @XmlElement(name="account", namespace = "wsapi:Utils")
-    public ArrayList<Account> account = new ArrayList<>();
+    private ArrayList<Account> account = new ArrayList<>();
     
     @XmlElement(name = "page")
-    public String page;
+    private String page;
     
     @XmlElement(name="field")
-    public ArrayList<Field> field = new ArrayList<>();
+    private ArrayList<Field> field = new ArrayList<>();
 
     public SendPayment() {
     }    

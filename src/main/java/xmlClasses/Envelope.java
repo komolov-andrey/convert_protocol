@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author Андрюха
  */
+@JsonRootName("Envelope")
 @XmlType(name = "Envelope")
 @XmlRootElement(name = "Envelope")
 @XmlAccessorType (XmlAccessType.FIELD)
@@ -28,7 +29,7 @@ public class Envelope {
     
     
     @XmlElement(name="Body")
-    public ArrayList<Body> body = new ArrayList<>();
+    private ArrayList<Body> body = new ArrayList<>();
 
     public ArrayList<Body> getBody() {
         return body;
